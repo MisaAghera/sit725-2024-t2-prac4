@@ -1,0 +1,26 @@
+{
+    "name": "sit725-2024-t2-prac4",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node startServerWithMongo.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MisaAghera/sit725-2024-t2-prac4"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/MisaAghera/sit725-2024-t2-prac4/issues"
+    },
+    "homepage": "https://github.com/MisaAghera/sit725-2024-t2-prac4#readme",
+    "dependencies": {
+        "express": "^4.19.2",
+        "expresss": "^0.0.0",
+        "mongodb": "^4.4.1",
+        "nodemon": "^3.0.1"
+    }
+}
