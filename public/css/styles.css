@@ -1,25 +1,35 @@
+nav {
+  background-color: #ec9334 !important;
+}
 .navbar-size {
-    width: 95%;
-    margin: 0 auto;
+  width: 95%;
+  margin: 0 auto;
 }
-
 .user-image-size {
-    height: 56px;
-    margin: 4px 0;
+  height: 56px;
+  margin: 4px 0;
+}
+.main-body {
+  background-color: #e3c18f;
+  color: white;
+  height: calc(100vh - 10px);
 }
 
-.main-body {
-    background-color: #F28487;
-    color: white;
-    height: calc(100vh - 64px);
+.lobster_font {
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .materialboxed-image {
-    margin: 0 auto;
-    height: 400px;
+  margin: 0 auto;
+  height: 400px;
+}
+.click-me-button {
+  background-color: #e59c2e;
+  margin-bottom: 10px;
 }
 
-.click-me-button {
-    background-color: #EE6E73;
-    margin-top: 50px;
+.modal-content {
+  height: auto !important;
 }

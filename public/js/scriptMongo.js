@@ -23,7 +23,7 @@ const formSubmitted = () => {
     postCat(formData);
 }
 
-function postCat(cat){
+function addCat(cat){
     $.ajax({
         url:'/api/cat',
         type:'POST',

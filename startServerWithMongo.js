@@ -1,16 +1,17 @@
 let express = require('express');
-let app = express();
+let server = express();
 const { MongoClient, ServerApiVersion } = require('mongodb');
 // const uri = "mongodb://localhost:27017";
-const uri = "mongodb+srv://s223000802:aIKUfpEXiAptMNMr@cluster0.janjm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-let port = process.env.port || 3000;
-let collection;
+const dbUri = "mongodb+srv://s223000802:aIKUfpEXiAptMNMr@cluster0.janjm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+//const dbUri = "mongodb+srv://s223000802:aIKUfpEXiAptMNMr@cluster0.janjm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+let serverPort = process.env.port || 3000;
+let catCollection;
 
-app.use(express.static(__dirname + '/public'))
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+server.use(express.static(__dirname + '/public'))
+server.use(express.json());
+server.use(express.urlencoded({extended: false}));
 
-const client = new MongoClient(uri, {
+const dbClient = new MongoClient(dbUri, {
     serverApi: {
         version: ServerApiVersion.v1,
         strict: true,
@@ -18,47 +19,46 @@ const client = new MongoClient(uri, {
     }
 });
 
-
-async function runDBConnection() {
+async function connectToDB() {
     try {
-        await client.connect();
-        collection = client.db().collection('Cat');
-        console.log(collection);
-    } catch(ex) {
-        console.error(ex);
+        await dbClient.connect();
+        catCollection = dbClient.db().collection('Cat');
+        console.log(catCollection);
+    } catch(error) {
+        console.error(error);
     }
 }
 
-app.get('/', function (req,res) {
+server.get('/', function (req, res) {
     res.render('indexMongo.html');
 });
 
-app.get('/api/cats', (req,res) => {
-    getAllCats((err,result)=>{
+server.get('/api/cats', (req, res) => {
+    fetchAllCats((err, result) => {
         if (!err) {
-            res.json({statusCode:200, data:result, message:'get all cats successful'});
+            res.json({statusCode: 200, data: result, message: 'get all cats successful'});
         }
     });
 });
 
-app.post('/api/cat', (req,res)=>{
-    let cat = req.body;
-    postCat(cat, (err, result) => {
+server.post('/api/cat', (req, res) => {
+    let newCat = req.body;
+    addCat(newCat, (err, result) => {
         if (!err) {
-            res.json({statusCode:201, data:result, message:'success'});
+            res.json({statusCode: 201, data: result, message: 'success'});
         }
     });
 });
 
-function postCat(cat,callback) {
-    collection.insertOne(cat,callback);
+function addCat(cat, callback) {
+    catCollection.insertOne(cat, callback);
 }
 
-function getAllCats(callback){
-    collection.find({}).toArray(callback);
+function fetchAllCats(callback) {
+    catCollection.find({}).toArray(callback);
 }
 
-app.listen(port, ()=>{
+server.listen(serverPort, () => {
     console.log('express server started');
-    runDBConnection();
+    connectToDB();
 });
